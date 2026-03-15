@@ -40,7 +40,6 @@ Shopora/
 ├── index.php               # Home page — hero, company info, featured products
 ├── navbar.php              # Shared navbar included on every page
 ├── style.css               # Main stylesheet (all pages)
-├── script.js               # Optional JS
 │
 ├── products/
 │   ├── products.php        # All products with category tabs and search
