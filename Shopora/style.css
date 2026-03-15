@@ -1,0 +1,710 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap');
+
+/* Μεταβλητές */
+:root {
+  --purple:      #6a1b9a;
+  --purple-mid:  #7b1fa2;
+  --purple-pale: #f3e5f5;
+  --purple-ultra:#faf0ff;
+  --white:       #ffffff;
+  --off-white:   #fdfbff;
+  --text:        #1c1c2e;
+  --text-mid:    #555570;
+  --text-light:  #999ab0;
+  --border:      #e8e0f0;
+  --shadow-sm:   0 2px 8px rgba(106,27,154,0.08);
+  --shadow-md:   0 6px 24px rgba(106,27,154,0.12);
+  --shadow-lg:   0 16px 48px rgba(106,27,154,0.16);
+  --radius:      14px;
+  --radius-sm:   8px;
+  --radius-pill: 100px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--off-white);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Και .main-content και .auth-page χρειάζονται flex:1 για να σπρώξουν το footer κάτω */
+.main-content,
+.auth-page { flex: 1; }
+
+/* Navbar */
+.navbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 88px;
+}
+
+/* Λογότυπο */
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+.brand-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.brand:hover .brand-logo { transform: scale(1.08); }
+.brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--purple);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+/* Σύνδεσμοι πλοήγησης */
+.nav-links { list-style: none; display: flex; align-items: center; gap: 2px; }
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-mid);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  transition: background 0.18s, color 0.18s;
+}
+.nav-links a:hover,
+.nav-links a.active { background: var(--purple-pale); color: var(--purple); }
+
+/* Αναζήτηση */
+.nav-search {
+  flex: 1;
+  max-width: 340px;
+  display: flex;
+  align-items: center;
+  background: var(--purple-ultra);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.nav-search:focus-within { border-color: var(--purple); box-shadow: 0 0 0 3px var(--purple-pale); }
+.nav-search input {
+  flex: 1;
+  padding: 9px 16px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+.nav-search input::placeholder { color: var(--text-light); }
+.nav-search button {
+  padding: 9px 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--purple);
+  display: flex;
+  align-items: center;
+}
+
+.nav-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; flex-shrink: 0; }
+
+/* Κουμπιά — βάση για ghost και trigger */
+.btn-ghost,
+.account-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.btn-ghost:hover,
+.account-trigger:hover { border-color: var(--purple); color: var(--purple); background: var(--purple-pale); }
+
+/* account-trigger έχει gap:8px αντί 6px */
+.account-trigger { gap: 8px; padding: 7px 14px; }
+
+.btn-primary {
+  text-decoration: none;
+  background: var(--purple);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 18px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-primary:hover { background: var(--purple-mid); transform: translateY(-1px); }
+
+/* Καλάθι — κουμπί navbar */
+.cart-btn {
+  position: relative;
+  background: var(--purple);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  width: 40px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.cart-btn:hover { background: var(--purple-mid); transform: translateY(-1px); }
+
+.cart-badge {
+  position: absolute;
+  top: -5px; right: -5px;
+  background: #e53935;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--white);
+}
+
+/* Κουμπί + προσθήκης προϊόντος */
+.btn-add-product {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--purple-pale);
+  color: var(--purple);
+  border: 1.5px solid var(--border);
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-add-product:hover { background: var(--purple); color: white; transform: scale(1.08); }
+
+/* Dropdown λογαριασμού */
+.account-menu { position: relative; flex-shrink: 0; }
+
+.account-avatar {
+  width: 26px; height: 26px;
+  background: var(--purple);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.chevron-down { font-size: 0.65rem; opacity: 0.5; transition: transform 0.2s; }
+.account-menu:hover .chevron-down { transform: rotate(180deg); }
+
+.account-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  min-width: 200px;
+  padding: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 200;
+}
+.account-menu:hover .account-dropdown { opacity: 1; pointer-events: all; transform: translateY(0); }
+
+.dropdown-header { padding: 10px 12px 8px; border-bottom: 1px solid var(--border); margin-bottom: 4px; }
+.dropdown-header strong { display: block; font-size: 0.9rem; color: var(--text); }
+.dropdown-header span   { font-size: 0.78rem; color: var(--text-light); }
+
+.account-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: background 0.15s, color 0.15s;
+}
+.account-dropdown a:hover        { background: var(--purple-pale); color: var(--purple); }
+.account-dropdown a.danger       { color: #c62828; }
+.account-dropdown a.danger:hover { background: #fce4ec; }
+.dropdown-divider { height: 1px; background: var(--border); margin: 4px 0; }
+
+/* Layout */
+.page-wrapper { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, var(--purple) 0%, #4a148c 100%);
+  color: white;
+  padding: 80px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.07), transparent 60%);
+  pointer-events: none;
+}
+.hero-content { max-width: 600px; margin: 0 auto; position: relative; }
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.hero p    { font-size: 1.05rem; opacity: 0.85; margin-bottom: 32px; line-height: 1.6; }
+.hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* Κουμπιά hero */
+.btn-white {
+  background: white;
+  color: var(--purple);
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.btn-white:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.2); transform: translateY(-1px); }
+
+.btn-outline-white {
+  background: transparent;
+  color: white;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: 2px solid rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+/* Τμήματα */
+.section { padding: 60px 0; }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.section-sub   { color: var(--text-mid); font-size: 0.9rem; margin-bottom: 32px; }
+
+/* Κατηγορίες */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+.cat-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 16px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.cat-card:hover { background: var(--purple-pale); border-color: var(--purple); color: var(--purple); transform: translateY(-2px); }
+.cat-icon { font-size: 2rem; margin-bottom: 8px; display: block; }
+
+/* Tabs φίλτρου */
+.cat-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+.cat-tab {
+  text-decoration: none;
+  padding: 7px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-mid);
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  transition: all 0.18s;
+}
+.cat-tab:hover  { border-color: var(--purple); color: var(--purple); background: var(--purple-pale); }
+.cat-tab.active { background: var(--purple); color: white; border-color: var(--purple); }
+
+/* Προϊόντα */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+.product-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+.product-img {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--purple-ultra);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  overflow: hidden;
+}
+.product-img img  { width: 100%; height: 100%; object-fit: cover; }
+.product-info     { padding: 16px; }
+.product-name     { font-weight: 700; font-size: 0.95rem; color: var(--text); margin-bottom: 4px; }
+.product-cat      { font-size: 0.78rem; color: var(--text-light); margin-bottom: 10px; }
+.product-footer   { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
+.product-price    { font-weight: 700; font-size: 1.05rem; color: var(--purple); }
+.add-to-cart {
+  background: var(--purple);
+  color: white;
+  border: none;
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.add-to-cart:hover { background: var(--purple-mid); transform: scale(1.04); }
+
+/* Αστέρια */
+.stars        { display: flex; gap: 2px; align-items: center; }
+.star         { color: #ddd; font-size: 0.95rem; line-height: 1; }
+.star.filled  { color: #f59e0b; }
+.rating-count { font-size: 0.78rem; color: var(--text-light); margin-left: 4px; }
+
+/* Σελίδα προϊόντος */
+.product-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  padding: 48px 0;
+}
+.product-detail-img {
+  background: var(--purple-ultra);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  overflow: hidden;
+}
+.product-detail-img img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
+.product-detail-info    { display: flex; flex-direction: column; gap: 16px; }
+.product-detail-name    { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; line-height: 1.2; }
+.product-detail-price   { font-size: 1.8rem; font-weight: 700; color: var(--purple); }
+.product-detail-desc    { color: var(--text-mid); line-height: 1.7; font-size: 0.95rem; }
+.product-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--purple-pale);
+  color: var(--purple);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+/* Αξιολογήσεις και σχόλια — κοινή βάση κάρτας */
+.review-card,
+.comment-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 14px;
+}
+.comment-card { padding: 16px 20px; margin-bottom: 12px; }
+
+.reviews-section  { padding: 40px 0; border-top: 1px solid var(--border); }
+.comments-section { padding: 40px 0; border-top: 1px solid var(--border); margin-top: 8px; }
+
+.review-card-header,
+.comment-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+
+.reviewer-name { font-weight: 700; font-size: 0.9rem; }
+.review-date   { font-size: 0.78rem; color: var(--text-light); }
+.review-comment { font-size: 0.9rem; color: var(--text-mid); line-height: 1.6; margin-top: 8px; }
+
+.review-form {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-top: 24px;
+}
+.review-form h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 16px; }
+
+/* Επιλογή αστεριών */
+.star-select { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 6px; margin-bottom: 14px; }
+.star-select input[type=radio] { display: none; }
+.star-select label { font-size: 1.5rem; cursor: pointer; color: #ddd; transition: color 0.15s; }
+.star-select label:hover,
+.star-select label:hover ~ label,
+.star-select input:checked + label { color: #f59e0b; }
+
+.guest-review-notice {
+  background: var(--purple-ultra);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-align: center;
+  color: var(--text-mid);
+  font-size: 0.9rem;
+  margin-top: 24px;
+}
+.guest-review-notice a { color: var(--purple); font-weight: 700; text-decoration: none; }
+
+/* Σχόλια */
+.comment-author { display: flex; align-items: center; gap: 10px; }
+.comment-avatar {
+  width: 30px; height: 30px;
+  background: var(--purple);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.comment-name  { font-weight: 700; font-size: 0.875rem; color: var(--text); }
+.comment-date  { font-size: 0.78rem; color: var(--text-light); }
+.comment-body  { font-size: 0.9rem; color: var(--text-mid); line-height: 1.6; }
+.comment-form  { background: var(--purple-ultra); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-top: 20px; }
+.comment-form textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+  outline: none;
+  background: var(--white);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.comment-form textarea:focus { border-color: var(--purple); box-shadow: 0 0 0 3px var(--purple-pale); }
+
+/* Auth */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(160deg, var(--purple-ultra) 0%, var(--white) 100%);
+}
+.auth-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 440px;
+}
+.auth-logo      { text-align: center; margin-bottom: 32px; }
+.auth-logo-img  { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto 10px; border: 2px solid var(--border); }
+.auth-logo-name { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: var(--purple); }
+.auth-title     { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.auth-sub       { color: var(--text-mid); font-size: 0.875rem; margin-bottom: 28px; }
+
+/* Φόρμα */
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--text-mid);
+  margin-bottom: 6px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: var(--off-white);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-group input:focus,
+.form-group select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px var(--purple-pale); background: var(--white); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.btn-submit {
+  width: 100%;
+  padding: 13px;
+  background: var(--purple);
+  color: white;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-submit:hover { background: var(--purple-mid); transform: translateY(-1px); }
+
+.auth-switch   { text-align: center; margin-top: 22px; font-size: 0.875rem; color: var(--text-mid); }
+.auth-switch a { color: var(--purple); font-weight: 700; text-decoration: none; }
+.auth-switch a:hover { text-decoration: underline; }
+
+.msg         { padding: 10px 14px; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 600; margin-bottom: 18px; }
+.msg-error   { background: #fce4ec; color: #c62828; border: 1px solid #f48fb1; }
+.msg-success { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+
+/* Καλάθι */
+.cart-layout { display: grid; grid-template-columns: 1fr 340px; gap: 40px; padding: 60px 0; }
+.cart-items  { display: flex; flex-direction: column; gap: 14px; }
+.cart-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.cart-item-img {
+  width: 70px; height: 70px;
+  background: var(--purple-ultra);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.cart-item-img img { width: 100%; height: 100%; object-fit: cover; }
+.cart-item-info    { flex: 1; }
+.cart-item-name    { font-weight: 700; font-size: 0.95rem; margin-bottom: 3px; }
+.cart-item-cat     { font-size: 0.8rem; color: var(--text-light); }
+.cart-item-price   { font-weight: 700; color: var(--purple); font-size: 1rem; }
+.cart-item-qty     { display: flex; align-items: center; gap: 8px; }
+
+.qty-btn {
+  width: 28px; height: 28px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+.qty-btn:hover   { border-color: var(--purple); background: var(--purple-pale); color: var(--purple); }
+.qty-num         { font-weight: 700; font-size: 0.9rem; min-width: 20px; text-align: center; }
+.cart-remove     { background: none; border: none; cursor: pointer; color: #ccc; font-size: 1.1rem; transition: color 0.2s; }
+.cart-remove:hover { color: #e53935; }
+
+.cart-summary {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  height: fit-content;
+  position: sticky;
+  top: 96px;
+}
+.cart-summary h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; }
+.summary-row     { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 10px; color: var(--text-mid); }
+.summary-total   { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; padding-top: 14px; border-top: 1.5px solid var(--border); margin-top: 10px; }
+
+/* Footer */
+.footer { background: var(--purple); color: rgba(255,255,255,0.7); text-align: center; padding: 28px 20px; font-size: 0.85rem; margin-top: auto; }
+.footer strong { color: white; }
+
+/* Mobile 768px */
+@media (max-width: 768px) {
+  .nav-search,
+  .nav-links       { display: none; }
+  .nav-container   { gap: 16px; padding: 0 20px; }
+  .hero            { padding: 52px 20px; }
+  .page-wrapper    { padding: 0 20px; }
+  .product-grid    { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+  .cat-grid        { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  .product-detail  { grid-template-columns: 1fr; gap: 24px; }
+  .cart-layout     { grid-template-columns: 1fr; }
+  .auth-card       { padding: 32px 24px; }
+  .form-row        { grid-template-columns: 1fr; }
+  .cart-item       { flex-wrap: wrap; }
+  .cart-item-qty   { order: 3; width: 100%; justify-content: flex-start; }
+  .hero h1         { font-size: 2rem; }
+}
+
+/* Mobile 480px */
+@media (max-width: 480px) {
+  .product-grid           { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .nav-actions .btn-ghost { display: none; }
+  .brand-name             { font-size: 1.2rem; }
+  .hero                   { padding: 40px 16px; }
+}
