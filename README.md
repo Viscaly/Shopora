@@ -54,7 +54,6 @@ Shopora/
 │   ├── logout.php          # Session destroy + redirect
 │   ├── edit_account.php    # Edit name, email, password, avatar
 │   ├── delete_account.php  # Permanently delete account
-│   └── account.php         # (reserved)
 │
 ├── cart/
 │   └── cart.php            # Shopping cart (DB-backed, persistent)
