@@ -89,7 +89,7 @@ Shopora/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/Shopora.git
+   git clone https://github.com/viscaly/Shopora.git
    ```
 
 2. **Move to XAMPP**
